@@ -1,1 +1,1 @@
-# quickstart-clickstream-analytics
+# quickstart-clickstream-analytics-ct
