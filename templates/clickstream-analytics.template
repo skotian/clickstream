@@ -9,8 +9,7 @@ Metadata:
           default: Network configuration
         Parameters:
           - VPC
-          - AvailabilityZone1
-          - AvailabilityZone2
+          - AvailabilityZones
       - Label:
           default: Subnet configuration
         Parameters:
@@ -146,10 +145,8 @@ Metadata:
         default: Number Of Nodes
       NodeType: 
         default: Node Type
-      AvailabilityZone1:
-        default: AvailabilityZone 1
-      AvailabilityZone2:
-        default: AvailabilityZone 2
+      AvailabilityZones:
+        default: Availability Zones
       ApplicationName:
         default: Application name
       InAppDestStream:
@@ -497,12 +494,11 @@ Parameters:
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Description: A CIDR block that’s allowed external access to the Bastion. We recommend that you use a constrained CIDR range to reduce the potential of inbound attacks from unknown IP addresses (see http://checkip.dyndns.org/)
     Type: String
-  AvailabilityZone1:
-    Description: Availability Zone 1 to use for the public and private subnets in the VPC.
-    Type: AWS::EC2::AvailabilityZone::Name
-  AvailabilityZone2:
-    Description: Availability Zone 2 to use for the public and private subnets in the VPC.
-    Type: AWS::EC2::AvailabilityZone::Name
+  AvailabilityZones:
+    Description: List of Availability Zones to use for the subnets in the VPC. Only
+      two Availability Zones are used for this deployment, and the logical order of
+      your selections is preserved.
+    Type: List<AWS::EC2::AvailabilityZone::Name>
   S3DestinationPrefix:
     Description: Name of prefix where the aggregated data will be stored.
     Type: String

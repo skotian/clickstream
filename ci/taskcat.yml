@@ -12,6 +12,11 @@ tests:
       - us-east-2
     template_file: clickstream-analytics.template
     parameter_input: clickstream-analytics-input-novpc.json
+  scenario-2:
+    regions:
+      - us-east-2
+    template_file: clickstream-analytics-master.template
+    parameter_input: clickstream-analytics-input-withvpc.json
   # The following test will test in both all us-east-2 region defined in the global region section using clickstream-analytics-input-withvpc.json as inputs
       #scenario-all-regions:
     #parameter_input: clickstream-analytics-input-withvpc.json
