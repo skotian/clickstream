@@ -1,0 +1,18 @@
+[
+  {
+      "ParameterKey": "OperatorEMail",
+      "ParameterValue": "atangirala@ctepl.com"
+  },
+  {
+      "ParameterKey": "KeyPairName",
+      "ParameterValue": "$[ieee-poc]"
+  },
+  {
+      "ParameterKey": "AppKeyPairName",
+      "ParameterValue": "$[ieee-poc]"
+  },
+  {
+      "ParameterKey": "RemoteAccessCIDR",
+      "ParameterValue": "0.0.0.0/0"
+  }
+]

@@ -4,16 +4,14 @@ global:
   #s3bucket: projectx-templates <- (Optional) Only needed if you want to use a specific bucket
   regions:
     - us-east-2
-    - us-west-2
 tests:
-  # The following test will test in both us-west-1 and us-east-1 using sample-cloudformation-input.json as inputs
+  # The following test will test in us-east-2 using clickstream-analytics-input-novpc.json as inputs
   scenario-1:
     regions:
-      - us-west-2
       - us-east-2
     template_file: clickstream-analytics.template
     parameter_input: clickstream-analytics-input-novpc.json
-  # The following test will test in both all 4 region defined in the global region section using sample-cloudformation-input.json as inputs
-      scenario-all-regions:
-    parameter_input: clickstream-analytics-input-withvpc.json
-    template_file: clickstream-analytics-master.template
+  # The following test will test in both all us-east-2 region defined in the global region section using clickstream-analytics-input-withvpc.json as inputs
+      #scenario-all-regions:
+    #parameter_input: clickstream-analytics-input-withvpc.json
+    #template_file: clickstream-analytics-master.template
