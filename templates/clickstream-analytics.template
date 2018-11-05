@@ -136,8 +136,6 @@ Metadata:
         default: BastionHost Key pair name
       AppKeyPairName:
         default: ApplicationHost Key pair name
-      BastionAMIOS:
-        default: Bastion AMI Operating System
       RemoteAccessCIDR:
         default: Allowed Bastion external access CIDR
       DatabaseName:
@@ -1524,7 +1522,6 @@ Resources:
       - IpProtocol: tcp
         FromPort:
           Ref: RedshiftPortNumber
-        ToPort:
         ToPort:
           Ref: RedshiftPortNumber
         SourceSecurityGroupId: !Ref AppSecurityGroup

@@ -1,9 +1,10 @@
 global:
   owner: atangirala@ctepl.com
-  qsname: quickstart-clickstream-analytics-ct <- Must match the root directory of project (usually the name of git repo)
+  qsname: quickstart-clickstream-analytics-ct
   #s3bucket: projectx-templates <- (Optional) Only needed if you want to use a specific bucket
   regions:
     - us-east-2
+  reporting: true
 tests:
   # The following test will test in us-east-2 using clickstream-analytics-input-novpc.json as inputs
   scenario-1:
