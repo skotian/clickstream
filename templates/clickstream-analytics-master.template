@@ -579,25 +579,25 @@ Parameters:
     MinValue: 1
     MaxValue: 100
   DatabaseName:
-    Description: The name of the first database to be created when the Redis cluster is
+    Description: The name of the first database to be created when the Redshift cluster is
       created
     Type: String
     Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
-    Description: The type of Redis cluster
+    Description: The type of Redshift cluster
     Type: String
     Default: single-node
     AllowedValues:
     - single-node
     - multi-node
   NumberOfNodes:
-    Description: The number of compute nodes in the Redis cluster. For multi-node clusters,
+    Description: The number of compute nodes in the Redshift cluster. For multi-node clusters,
       the NumberOfNodes parameter must be greater than 1
     Type: Number
     Default: '1'
   NodeType:
-    Description: The type of Redis node to be provisioned
+    Description: The type of Redshift node to be provisioned
     Type: String
     Default: dc2.large
     AllowedValues:
