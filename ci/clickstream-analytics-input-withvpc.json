@@ -13,11 +13,11 @@
   },
   {
       "ParameterKey": "KeyPairName",
-      "ParameterValue": "ieee-poc"
+      "ParameterValue": "csa"
   },
   {
       "ParameterKey": "AppKeyPairName",
-      "ParameterValue": "ieee-poc"
+      "ParameterValue": "csa"
   },
   {
       "ParameterKey": "RemoteAccessCIDR",
