@@ -40,14 +40,14 @@ Metadata:
       - Label:
           default: Amazon Elasticsearch configuration
         Parameters:
-          - ElasticsearchVersion
+          - ESVersion
           - ESClusterInstanceCount
           - ZoneAwarenessEnabled
           - ESInstanceType
           - DedicatedMasterEnabled
           - DedicatedMasterType
           - DedicatedMasterCount
-          - Iops
+          - IOPS
           - VolumeSize
           - AutomatedSnapshotStartHour
           - VolumeType
@@ -92,7 +92,7 @@ Metadata:
       ESClusterInstanceCount:
         default: Number of instances to run in cluster
       ZoneAwarenessEnabled:
-        default: Multi-AZ for cluster
+        default: Enable Zone Awareness
       ESInstanceType:
         default: Cluster Instance Type
       DedicatedMasterEnabled:
@@ -101,14 +101,14 @@ Metadata:
         default: Instance Type for Dedicated Master
       DedicatedMasterCount:
         default: Number of Dedicated Masters in a cluster
-      Iops:
+      IOPS:
         default: IOPS for Cluster
       VolumeSize:
-        default: Instance EBS Volume Size
+        default: EBS Volume Size
       AutomatedSnapshotStartHour:
         default: Everyday Snapshot Time
       VolumeType:
-        default: Type of volume to be used in cluster
+        default: EBS Volume Type
       VPC:
         default: Existing VPC ID
       PublicSubnetA:
@@ -132,13 +132,13 @@ Metadata:
       AppInstanceType:
         default: Application Instance Type
       KeyPairName:
-        default: BastionHost Key pair name
+        default: Bastion Host Key pair name
       AppKeyPairName:
-        default: ApplicationHost Key pair name
+        default: Application Host Key pair name
       RemoteAccessCIDR:
-        default: Allowed Bastion external access CIDR
+        default: Allowed CIDR for external access to Bastion
       DatabaseName:
-        default: DatabaseName
+        default: Database Name
       ClusterType:
         default: Cluster Type
       NumberOfNodes:
@@ -149,8 +149,6 @@ Metadata:
         default: Availability Zones
       ApplicationName:
         default: Application name
-      InAppDestStream:
-        default: In-application Output Stream Name
       EncryptData:
         default: Encrypt Data at Rest
       MasterUser:
@@ -166,14 +164,14 @@ Metadata:
       RedshiftBufferSize:
         default: Buffer Size
       RedshiftPortNumber:
-        default: Redshift PortNumber
+      i  default: Redshift Port Number
       isDemo:
         default: Include Demo Data
       ESIndex:
         default: Index Name
       ESType:
         default: Type Name
-      ElasticsearchVersion:
+      ESVersion:
         default: Elasticsearch version
       ESIndexRotation:
         default: Index Rotation
@@ -294,13 +292,13 @@ Parameters:
       - 3
       - 5
     Default: 0
-  Iops:
+  IOPS:
     Type: String
-    Description: I/O (input/output) for cluster
+    Description: The provisioned IOPS value must be an integer between 1000 and 16000
     Default: 0
   VolumeSize:
     Type: String
-    Description: EBS volume size in GB. Applies only to provisioned IOPS
+    Description: IOPS Total cluster size in GB (EBS volume size x Instance count)
     Default: 10
   AutomatedSnapshotStartHour:
     Type: String
@@ -484,10 +482,10 @@ Parameters:
     - cg1.4xlarge
     ConstraintDescription: must be a valid EC2 instance type.
   KeyPairName:
-    Description: Public/private key pairs allow you to securely connect to your instance after it launches. If you do not have one in this region, please create it before continuing
+    Description: Public/private key pairs allow you to securely connect to your bastion instance after it launches. If you do not have one in this region, please create it before continuing
     Type: AWS::EC2::KeyPair::KeyName
   AppKeyPairName:
-    Description: Public/private key pairs allow you to securely connect to your instance after it launches. If you do not have one in this region, please create it before continuing
+    Description: Public/private key pairs allow you to securely connect to your application instance after it launches. If you do not have one in this region, please create it before continuing
     Type: AWS::EC2::KeyPair::KeyName
   RemoteAccessCIDR:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
@@ -522,7 +520,7 @@ Parameters:
       - 'yes'
       - 'no'
     Default: 'no'
-  ElasticsearchVersion:
+  ESVersion:
     Description: User defined Elasticsearch version
     Type: String
     Default: "6.3"
@@ -568,25 +566,24 @@ Parameters:
     MinValue: 1
     MaxValue: 100
   DatabaseName:
-    Description: The name of the first database to be created when the Redis cluster is
-      created
+    Description: The name of the first database to be created when the Redshift cluster is created
     Type: String
     Default: dev
     AllowedPattern: "([a-z]|[0-9])+"
   ClusterType:
-    Description: The type of Redis cluster
+    Description: The type of Redshift cluster
     Type: String
     Default: single-node
     AllowedValues:
     - single-node
     - multi-node
   NumberOfNodes:
-    Description: The number of compute nodes in the Redis cluster. For multi-node clusters,
+    Description: The number of compute nodes in the Redshift cluster. For multi-node clusters,
       the NumberOfNodes parameter must be greater than 1
     Type: Number
     Default: '1'
   NodeType:
-    Description: The type of Redis node to be provisioned
+    Description: The type of Redshift node to be provisioned
     Type: String
     Default: dc2.large
     AllowedValues:
@@ -1268,7 +1265,7 @@ Resources:
   ESDomain:
     Type: AWS::Elasticsearch::Domain
     Properties:
-      ElasticsearchVersion: !Ref ElasticsearchVersion
+      ElasticsearchVersion: !Ref ESVersion
       ElasticsearchClusterConfig:      
         DedicatedMasterEnabled: !If [HasDedicatedMasterNodes, true, false]
         InstanceCount: !Ref ESClusterInstanceCount
@@ -1278,7 +1275,7 @@ Resources:
         DedicatedMasterCount: !If [HasDedicatedMasterNodes, !Ref DedicatedMasterCount, !Ref 'AWS::NoValue']
       EBSOptions:
         EBSEnabled: 'true'
-        Iops: !Ref Iops
+        Iops: !Ref IOPS
         VolumeSize: !Ref VolumeSize
         VolumeType: !Ref VolumeType
       SnapshotOptions:
