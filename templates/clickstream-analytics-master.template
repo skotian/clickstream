@@ -1863,7 +1863,7 @@ Resources:
         - !Ref 'AWS::Region'
         - !FindInMap
           - InstanceType2Arch
-          - !Ref 'BastionInstanceType'
+          - !Ref 'AppInstanceType'
           - Arch
       SecurityGroups:
         - !Ref 'AppSecurityGroup'
@@ -2050,7 +2050,7 @@ Resources:
         - !Ref 'AWS::Region'
         - !FindInMap
           - InstanceType2Arch
-          - !Ref 'BastionInstanceType'
+          - !Ref 'AppInstanceType'
           - Arch
       SecurityGroups:
         - !Ref 'AppSecurityGroup'
