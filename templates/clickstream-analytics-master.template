@@ -15,7 +15,7 @@ Metadata:
           - PublicSubnet1CIDR
           - PublicSubnet2CIDR
       - Label:
-          default: Bastion Host configuration
+          default: Bastion host configuration
         Parameters:
           - KeyPairName
           - BastionInstanceType
